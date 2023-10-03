@@ -1,0 +1,8 @@
+package veiculo;
+
+public enum Cor {    
+    AMARELO, AZUL, BEGE, BRANCO,
+    CINZA, DOURADO, GRENA, LARANJA,
+    MARROM, PRATA, PRETO, ROSA,
+    ROXO, VERDE, VERMELHO, FANTASIA;
+}
