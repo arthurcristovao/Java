@@ -13,16 +13,17 @@ import java.util.ArrayList;
  *
  * @author 08220186
  */
-public class AuthorsDAO implements DAO{
-
-    @Override
+public class AuthorsDAO{
     public int insert(Authors a) {
         int rowCount = 0;
-        try (Connection conn = ConexaoMySQL.getConexaoMySQL()) {
+        try {
+            
+            Connection conn = ConexaoMySQL.getConexaoMySQL(); 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO authors(firstName, lastName) VALUES(?,?)");
             ps.setString(1, a.getFirstName());
             ps.setString(2, a.getLastName());
             rowCount = ps.executeUpdate();
+            return rowCount;
         } catch (SQLException ex) {
             // Faça o tratamento adequado da exceção
             ex.printStackTrace(); // Isso irá mostrar o erro no console para depuração
@@ -30,7 +31,7 @@ public class AuthorsDAO implements DAO{
         return rowCount;
     }
 
-    @Override
+    
     public Authors read(int id) {
         Authors a = null;
         try {
@@ -52,25 +53,64 @@ public class AuthorsDAO implements DAO{
         return a;
     }
         
-    @Override
-    public ArrayList<Authors> list() {
-        
-        return null;
-        
-    }
-
-    @Override
-    public int update(Authors a) {
-        
-        return 0;
-        
-    }
-
-    @Override
-    public int delete(int id) {
-        
-        return 0;
-        
-    }
     
+    public ArrayList<Authors> list() {
+        ArrayList<Authors> authorsList = new ArrayList<>();
+
+        try {
+            Connection conn = ConexaoMySQL.getConexaoMySQL();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT AuthorsID, firstName, lastName FROM authors");
+
+            while (rs.next()) {
+                int id = rs.getInt("AuthorsID");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                Authors author = new Authors(id, firstName, lastName);
+                authorsList.add(author);
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return authorsList;
+    }
+
+    public int update(Authors a) {
+        int rowCount = 0;
+
+        try {
+            
+            Connection conn = ConexaoMySQL.getConexaoMySQL(); 
+            PreparedStatement ps = conn.prepareStatement("UPDATE authors SET firstName = ?, lastName = ? WHERE AuthorsID = ?");
+            ps.setString(1, a.getFirstName());
+            ps.setString(2, a.getLastName());
+            ps.setInt(3, a.getAuthorsID());
+            rowCount = ps.executeUpdate();
+            
+            return rowCount;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return 0;
+    }
+
+    
+    public int delete(int id) {
+        int rowCount = 0;
+        try {
+            Connection conn = ConexaoMySQL.getConexaoMySQL(); 
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM authors WHERE AuthorsID = ?");
+            ps.setInt(1, id);
+            rowCount = ps.executeUpdate();
+            return rowCount;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return 0;
+    }
 }
+

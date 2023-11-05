@@ -10,10 +10,10 @@ import java.util.ArrayList;
  *
  * @author 08220186
  */
-public interface DAO {
-    public int insert ( Authors a );
-    public Authors read( int id );
-    public ArrayList<Authors> list();
-    public int update( Authors a );
-    public int delete( int id );
+interface DAO<T> {
+    void insert(T t);
+    T read(int id);
+    void update(T t);
+    void delete(int id);
+    ArrayList<T> list();
 }

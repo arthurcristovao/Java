@@ -10,7 +10,7 @@ public class ConexaoMySQL {
         Connection conn = null;
         
         String serverName = "localhost";
-        String mydatabase = "aula14";
+        String mydatabase = "sistema";
         String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
         String username = "root";
         String password = "";
