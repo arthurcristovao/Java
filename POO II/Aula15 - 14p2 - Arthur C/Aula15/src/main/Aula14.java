@@ -1,9 +1,8 @@
 package main;
 
-import titles.Titles;
-import titles.TitlesDAO;
-import authors.AuthorsDAO;
-import authors.Authors;
+import titles.*;
+import authors.*;
+import authortitle.*;
 import java.util.Scanner;
 import java.util.List;
 
@@ -24,6 +23,9 @@ public class Aula14 {
                 case 2:
                     titlesMenu(scanner);
                     break;
+                case 3:
+                    authorTitleMenu(scanner);
+                    break;
                 case 0:
                     System.out.println("Saindo do programa...");
                     break;
@@ -40,6 +42,7 @@ public class Aula14 {
         System.out.println("Escolha uma opção:");
         System.out.println("1. Authors");
         System.out.println("2. Titles");
+        System.out.println("3. Relação Authors e Titles");
         System.out.println("0. Sair");
     }
 
@@ -258,6 +261,87 @@ public class Aula14 {
         System.out.println("3. Atualizar");
         System.out.println("4. Deletar");
         System.out.println("5. Listar");
+        System.out.println("0. Voltar");
+    }
+    
+    public static void authorTitleMenu(Scanner scanner) {
+        int option;
+        AuthorTitleDAO authorTitleDAO = new AuthorTitleDAO();
+
+        do {
+            showAuthorTitleMenuOptions();
+            option = getUserOption(scanner);
+
+            switch (option) {
+                case 1:
+                    System.out.println("Associar Autor ao Título");
+                    System.out.println("Insira o ID do Autor:");
+                    int authorID = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Insira o ISBN do Título:");
+                    int titleISBN = Integer.parseInt(scanner.nextLine());
+
+                    authorTitleDAO.associateAuthorTitle(authorID, titleISBN);
+                    break;
+
+                case 2:
+                    System.out.println("Desassociar Autor do Título");
+                    System.out.println("Insira o ID do Autor:");
+                    int authorIDForDisassociation = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Insira o ISBN do Título:");
+                    int titleISBNForDisassociation = Integer.parseInt(scanner.nextLine());
+
+                    authorTitleDAO.disassociateAuthorTitle(authorIDForDisassociation, titleISBNForDisassociation);
+                    break;
+
+                case 3:
+                    System.out.println("Recuperar Títulos por Autor");
+                    System.out.println("Insira o ID do Autor:");
+                    int authorIDForTitles = Integer.parseInt(scanner.nextLine());
+
+                    List<Titles> titlesByAuthor = authorTitleDAO.getTitlesByAuthor(authorIDForTitles);
+                    if (!titlesByAuthor.isEmpty()) {
+                        System.out.println("Títulos:");
+                        for (Titles title : titlesByAuthor) {
+                            System.out.println("ISBN: " + title.getISBN() + " Título: " + title.getTitle());
+                        }
+                    } else {
+                        System.out.println("Nenhum título encontrado para o autor.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Recuperar Autores por Título");
+                    System.out.println("Insira o ISBN do Título:");
+                    int titleISBNForAuthors = Integer.parseInt(scanner.nextLine());
+
+                    List<Authors> authorsByTitle = authorTitleDAO.getAuthorsByTitle(titleISBNForAuthors);
+                    if (!authorsByTitle.isEmpty()) {
+                        System.out.println("Autores:");
+                        for (Authors author : authorsByTitle) {
+                            System.out.println("ID: " + author.getAuthorsID() + " Nome: " + author.getFirstName() + " " + author.getLastName());
+                        }
+                    } else {
+                        System.out.println("Nenhum autor encontrado para o título.");
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Retornando ao menu principal...");
+                    return;
+
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    break;
+            }
+        } while (true);
+    }
+
+    public static void showAuthorTitleMenuOptions() {
+        System.out.println("\nMenu Autor-Título:");
+        System.out.println("1. Associar Autor ao Título");
+        System.out.println("2. Desassociar Autor do Título");
+        System.out.println("3. Recuperar Títulos por Autor");
+        System.out.println("4. Recuperar Autores por Título");
         System.out.println("0. Voltar");
     }
 }

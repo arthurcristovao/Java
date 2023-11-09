@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import sql.ConexaoMySQL;
+import java.util.logging.*;
 
 public class TitlesDAO {
     
@@ -25,7 +26,7 @@ public class TitlesDAO {
             conn.close();
             return rowCount;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(TitlesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return 0;
     }
@@ -50,7 +51,7 @@ public class TitlesDAO {
             conn.close();
             System.out.println("Leitura do título realizada com sucesso.");
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(TitlesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return title;
     }
@@ -69,7 +70,7 @@ public class TitlesDAO {
             System.out.println("Título atualizado com sucesso.");
             return rowCount;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(TitlesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return 0;
     }
@@ -86,7 +87,7 @@ public class TitlesDAO {
             return rowCount;
             
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(TitlesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return 0;
     }
@@ -109,7 +110,7 @@ public class TitlesDAO {
             }
             System.out.println("Listagem de títulos concluída com sucesso.");
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(TitlesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return titlesList;
     }

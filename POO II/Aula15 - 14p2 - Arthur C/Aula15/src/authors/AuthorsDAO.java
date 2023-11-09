@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.ArrayList;
 import sql.ConexaoMySQL;
+import java.util.logging.*;
 
 
 /**
@@ -26,8 +27,7 @@ public class AuthorsDAO{
             rowCount = ps.executeUpdate();
             return rowCount;
         } catch (SQLException ex) {
-
-            ex.printStackTrace(); 
+            Logger.getLogger(AuthorsDAO.class.getName()).log(Level.SEVERE, null, ex); 
         }
         return rowCount;
     }
@@ -48,8 +48,7 @@ public class AuthorsDAO{
             }
             conn.close();
         } catch (SQLException ex) {
-            
-            ex.printStackTrace(); 
+            Logger.getLogger(AuthorsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return a;
     }
@@ -72,7 +71,7 @@ public class AuthorsDAO{
             }
             conn.close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(AuthorsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return authorsList;
@@ -92,7 +91,7 @@ public class AuthorsDAO{
             
             return rowCount;
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(AuthorsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return 0;
@@ -108,7 +107,7 @@ public class AuthorsDAO{
             rowCount = ps.executeUpdate();
             return rowCount;
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(AuthorsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return 0;
