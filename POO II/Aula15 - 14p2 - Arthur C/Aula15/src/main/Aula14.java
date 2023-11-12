@@ -38,7 +38,7 @@ public class Aula14 {
         scanner.close();
     }
 
-    public static void showMainMenuOptions() {
+    private static void showMainMenuOptions() {
         System.out.println("Escolha uma opção:");
         System.out.println("1. Authors");
         System.out.println("2. Titles");
@@ -46,7 +46,7 @@ public class Aula14 {
         System.out.println("0. Sair");
     }
 
-    public static int getUserOption(Scanner scanner) {
+    private static int getUserOption(Scanner scanner) {
         int option = -1;
         boolean validInput = false;
 
@@ -61,7 +61,7 @@ public class Aula14 {
         return option;
     }
 
-    public static void authorsMenu(Scanner scanner) {
+    private static void authorsMenu(Scanner scanner) {
         int option;
         AuthorsDAO authorsDAO = new AuthorsDAO();
 
@@ -155,7 +155,7 @@ public class Aula14 {
         } while (true);
     }
 
-    public static void showAuthorsMenuOptions() {
+    private static void showAuthorsMenuOptions() {
         System.out.println("\nMenu de Authors:");
         System.out.println("1. Inserir");
         System.out.println("2. Ler");
@@ -165,7 +165,7 @@ public class Aula14 {
         System.out.println("0. Voltar");
     }
 
-    public static void titlesMenu(Scanner scanner) {
+    private static void titlesMenu(Scanner scanner) {
         int option;
         TitlesDAO titlesDAO = new TitlesDAO();
 
@@ -254,7 +254,7 @@ public class Aula14 {
         } while (true);
     }
 
-    public static void showTitlesMenuOptions() {
+    private static void showTitlesMenuOptions() {
         System.out.println("\nMenu de Titles:");
         System.out.println("1. Inserir");
         System.out.println("2. Ler");
@@ -264,7 +264,7 @@ public class Aula14 {
         System.out.println("0. Voltar");
     }
     
-    public static void authorTitleMenu(Scanner scanner) {
+    private static void authorTitleMenu(Scanner scanner) {
         int option;
         AuthorTitleDAO authorTitleDAO = new AuthorTitleDAO();
 
@@ -336,7 +336,7 @@ public class Aula14 {
         } while (true);
     }
 
-    public static void showAuthorTitleMenuOptions() {
+    private static void showAuthorTitleMenuOptions() {
         System.out.println("\nMenu Autor-Título:");
         System.out.println("1. Associar Autor ao Título");
         System.out.println("2. Desassociar Autor do Título");
