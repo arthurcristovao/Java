@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import aluguel.*;
+import java.util.List;
 import sql.ConexaoMySQL;
 
 public class AvaliacaoDAO {
@@ -107,5 +108,59 @@ public class AvaliacaoDAO {
         }
 
         return 0;
+    }
+    
+    public List<Avaliacao> listByClienteId(int clienteId) {
+        List<Avaliacao> avaliacoesList = new ArrayList<>();
+
+        try {
+            Connection conn = ConexaoMySQL.getConexaoMySQL();
+            PreparedStatement ps = conn.prepareStatement("SELECT idAvaliacao, aluguel_id, nota, comentario FROM Avaliacao INNER JOIN Aluguel ON Avaliacao.aluguel_id = Aluguel.idAluguel WHERE Aluguel.cliente_id = ?");
+            ps.setInt(1, clienteId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("idAvaliacao");
+                int aluguelId = rs.getInt("aluguel_id");
+                int nota = rs.getInt("nota");
+                String comentario = rs.getString("comentario");
+                AluguelDAO aluguelDAO = new AluguelDAO();
+                Aluguel aluguel = aluguelDAO.read(aluguelId);
+                Avaliacao avaliacao = new Avaliacao(id, aluguel, nota, comentario);
+                avaliacoesList.add(avaliacao);
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return avaliacoesList;
+    }
+
+    public List<Avaliacao> listByCarroId(int carroId) {
+        List<Avaliacao> avaliacoesList = new ArrayList<>();
+
+        try {
+            Connection conn = ConexaoMySQL.getConexaoMySQL();
+            PreparedStatement ps = conn.prepareStatement("SELECT idAvaliacao, aluguel_id, nota, comentario FROM Avaliacao INNER JOIN Aluguel ON Avaliacao.aluguel_id = Aluguel.idAluguel WHERE Aluguel.carro_id = ?");
+            ps.setInt(1, carroId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("idAvaliacao");
+                int aluguelId = rs.getInt("aluguel_id");
+                int nota = rs.getInt("nota");
+                String comentario = rs.getString("comentario");
+                AluguelDAO aluguelDAO = new AluguelDAO();
+                Aluguel aluguel = aluguelDAO.read(aluguelId);
+                Avaliacao avaliacao = new Avaliacao(id, aluguel, nota, comentario);
+                avaliacoesList.add(avaliacao);
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return avaliacoesList;
     }
 }

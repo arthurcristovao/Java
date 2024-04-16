@@ -313,9 +313,9 @@ public class Main {
                     int clienteId = Integer.parseInt(scanner.nextLine());
                     System.out.println("Insira o ID do Carro:");
                     int carroId = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Insira a data de aluguel (Formato: YYYY-MM-DD):");
+                    System.out.println("Insira a data de aluguel (Formato: AAAA-MM-DD):");
                     LocalDate dataAluguel = LocalDate.parse(scanner.nextLine());
-                    System.out.println("Insira a data de devolução (Formato: YYYY-MM-DD):");
+                    System.out.println("Insira a data de devolução (Formato: AAAA-MM-DD):");
                     LocalDate dataDevolucao = LocalDate.parse(scanner.nextLine());
 
                     Cliente cliente = new Cliente();
@@ -412,6 +412,42 @@ public class Main {
                         System.out.println("Nenhum aluguel encontrado.");
                     }
                     break;
+                case 6:
+                    // Consultar aluguéis de um cliente pelo ID
+                    System.out.println("Consultar aluguéis de um cliente pelo ID");
+                    System.out.println("Insira o ID do Cliente:");
+                    int consultaClienteId = Integer.parseInt(scanner.nextLine());
+                    List<Aluguel> alugueisCliente = aluguelDAO.listByCliente(consultaClienteId);
+                    if (!alugueisCliente.isEmpty()) {
+                        System.out.println("Aluguéis do Cliente ID " + consultaClienteId + ":");
+                        for (Aluguel aluguel : alugueisCliente) {
+                            System.out.println("ID: " + aluguel.getIdAluguel() +
+                                    ", Carro ID: " + aluguel.getCarro().getIdCarro() +
+                                    ", Data de Aluguel: " + aluguel.getDataAluguel() +
+                                    ", Data de Devolução: " + aluguel.getDataDevolucao());
+                        }
+                    } else {
+                        System.out.println("Nenhum aluguel encontrado para o Cliente ID " + consultaClienteId + ".");
+                    }
+                    break;
+                case 7:
+                    // Consultar aluguéis de um carro pelo ID
+                    System.out.println("Consultar aluguéis de um carro pelo ID");
+                    System.out.println("Insira o ID do Carro:");
+                    int consultaCarroId = Integer.parseInt(scanner.nextLine());
+                    List<Aluguel> alugueisCarro = aluguelDAO.listByCarro(consultaCarroId);
+                    if (!alugueisCarro.isEmpty()) {
+                        System.out.println("Aluguéis do Carro ID " + consultaCarroId + ":");
+                        for (Aluguel aluguel : alugueisCarro) {
+                            System.out.println("ID: " + aluguel.getIdAluguel() +
+                                    ", Cliente ID: " + aluguel.getCliente().getIdCliente() +
+                                    ", Data de Aluguel: " + aluguel.getDataAluguel() +
+                                    ", Data de Devolução: " + aluguel.getDataDevolucao());
+                        }
+                    } else {
+                        System.out.println("Nenhum aluguel encontrado para o Carro ID " + consultaCarroId + ".");
+                    }
+                    break;
                 case 0:
                     System.out.println("Voltando ao menu principal...");
                     break;
@@ -429,6 +465,8 @@ public class Main {
         System.out.println("3. Atualizar");
         System.out.println("4. Deletar");
         System.out.println("5. Listar");
+        System.out.println("6. Consultar aluguéis de um cliente pelo ID");
+        System.out.println("7. Consultar aluguéis de um carro pelo ID");
         System.out.println("0. Voltar");
     }
     
@@ -534,6 +572,42 @@ public class Main {
                         System.out.println("Nenhuma avaliação encontrada.");
                     }
                     break;
+                case 6:
+                    // Operação de pesquisa de Avaliacoes por Cliente ID
+                    System.out.println("Operação de pesquisa de Avaliações por Cliente ID");
+                    System.out.println("Insira o ID do Cliente:");
+                    int clienteIdForAvaliacoes = Integer.parseInt(scanner.nextLine());
+                    List<Avaliacao> avaliacoesByClienteId = avaliacaoDAO.listByClienteId(clienteIdForAvaliacoes);
+                    if (!avaliacoesByClienteId.isEmpty()) {
+                        System.out.println("Avaliações do Cliente ID " + clienteIdForAvaliacoes + ":");
+                        for (Avaliacao avaliacao : avaliacoesByClienteId) {
+                            System.out.println("ID: " + avaliacao.getIdAvaliacao() +
+                                    ", Aluguel ID: " + avaliacao.getAluguel().getIdAluguel() +
+                                    ", Nota: " + avaliacao.getNota() +
+                                    ", Comentário: " + avaliacao.getComentario());
+                        }
+                    } else {
+                        System.out.println("Nenhuma avaliação encontrada para o Cliente ID " + clienteIdForAvaliacoes + ".");
+                    }
+                    break;
+                case 7:
+                    // Operação de pesquisa de Avaliacoes por Carro ID
+                    System.out.println("Operação de pesquisa de Avaliações por Carro ID");
+                    System.out.println("Insira o ID do Carro:");
+                    int carroIdForAvaliacoes = Integer.parseInt(scanner.nextLine());
+                    List<Avaliacao> avaliacoesByCarroId = avaliacaoDAO.listByCarroId(carroIdForAvaliacoes);
+                    if (!avaliacoesByCarroId.isEmpty()) {
+                        System.out.println("Avaliações do Carro ID " + carroIdForAvaliacoes + ":");
+                        for (Avaliacao avaliacao : avaliacoesByCarroId) {
+                            System.out.println("ID: " + avaliacao.getIdAvaliacao() +
+                                    ", Aluguel ID: " + avaliacao.getAluguel().getIdAluguel() +
+                                    ", Nota: " + avaliacao.getNota() +
+                                    ", Comentário: " + avaliacao.getComentario());
+                        }
+                    } else {
+                        System.out.println("Nenhuma avaliação encontrada para o Carro ID " + carroIdForAvaliacoes + ".");
+                    }
+                    break;
                 case 0:
                     System.out.println("Voltando ao menu principal...");
                     break;
@@ -551,6 +625,8 @@ public class Main {
         System.out.println("3. Atualizar");
         System.out.println("4. Deletar");
         System.out.println("5. Listar");
+        System.out.println("6. Pesquisar por Cliente ID");
+        System.out.println("7. Pesquisar por Carro ID");
         System.out.println("0. Voltar");
     }
 
