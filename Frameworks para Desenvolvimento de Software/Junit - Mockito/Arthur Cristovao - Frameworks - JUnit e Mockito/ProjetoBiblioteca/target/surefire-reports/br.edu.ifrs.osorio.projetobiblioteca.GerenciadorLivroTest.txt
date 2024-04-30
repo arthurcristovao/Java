@@ -1,0 +1,37 @@
+-------------------------------------------------------------------------------
+Test set: br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 1.246 sec <<< FAILURE!
+br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest.testaLocarLivro()  Time elapsed: 1.232 sec  <<< FAILURE!
+Wanted but not invoked:
+livro.locar("email@teste.com");
+-> at br.edu.ifrs.osorio.projetobiblioteca.Livro.locar(Livro.java:97)
+Actually, there were zero interactions with this mock.
+
+	at br.edu.ifrs.osorio.projetobiblioteca.Livro.locar(Livro.java:97)
+	at br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest.testaLocarLivro(GerenciadorLivroTest.java:34)
+
+br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest.testaAvisarLocacaoFinal()  Time elapsed: 0.006 sec  <<< FAILURE!
+Wanted but not invoked:
+emailService.enviaEmail(
+    <any string>,
+    <any string>,
+    <any string>
+);
+-> at br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest.testaAvisarLocacaoFinal(GerenciadorLivroTest.java:99)
+Actually, there were zero interactions with this mock.
+
+	at br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest.testaAvisarLocacaoFinal(GerenciadorLivroTest.java:99)
+
+br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest.testaAvisarReservaNoFinal()  Time elapsed: 0.004 sec  <<< FAILURE!
+Wanted but not invoked:
+emailService.enviaEmail(
+    <any string>,
+    <any string>,
+    <any string>
+);
+-> at br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest.testaAvisarReservaNoFinal(GerenciadorLivroTest.java:81)
+Actually, there were zero interactions with this mock.
+
+	at br.edu.ifrs.osorio.projetobiblioteca.GerenciadorLivroTest.testaAvisarReservaNoFinal(GerenciadorLivroTest.java:81)
+

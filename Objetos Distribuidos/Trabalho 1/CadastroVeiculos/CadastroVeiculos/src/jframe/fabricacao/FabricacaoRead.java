@@ -121,6 +121,10 @@ public class FabricacaoRead extends javax.swing.JFrame {
         setResizable(false);
 
         campoDePesquisa.setText("teste");
+        campoDePesquisa.setEnabled(false);
+        campoDePesquisa.setFocusable(false);
+        campoDePesquisa.setNextFocusableComponent(botaoPesquisar);
+        campoDePesquisa.setRequestFocusEnabled(false);
 
         voltar.setBackground(new java.awt.Color(102, 204, 255));
         voltar.setText("Voltar");
